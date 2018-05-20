@@ -1,0 +1,51 @@
+<span class="datum"><a id = "new-Page1" {{action "NYCsearchBBL" preventDefault=false}} target="_blank"><i aria-hidden="true" class="fa fa-external-link"></i> NYC Buildings BIS, Property Profile Overview </a></span><br>
+<span class="datum"><a id = "new-Page2" href="{{nyc_ppo.cUrl}}" target="_blank"><i aria-hidden="true" class="fa fa-external-link"></i> NYC Buildings BIS, Certificate(s) of Occupancy </a></span>
+
+<ul class="lot-zoning-list">
+    <li class="datum tbav_header" style="width:51%;"></li>
+    <li class="datum crawl_header">Total</li>
+    <li class="datum crawl_header">Open</li>
+</ul>
+<ul class="lot-zoning-list">
+    <li class="datum crawl_body">
+    	{{#if nyc_ppo.tb1.link}}
+    		<a href="{{nyc_ppo.tb1.link}}" target="_blank">{{nyc_ppo.tb1.name}}</a>
+    	{{else}}
+    		{{nyc_ppo.tb1.name}}
+    	{{/if}}
+    </li>
+    {{#each nyc_ppo.tb1.value as |item|}}
+	    <li class="datum crawl_body">
+			{{item}}
+	    </li>
+    {{/each}}
+</ul>
+<ul class="lot-zoning-list">
+    <li class="datum crawl_body">
+    	{{#if nyc_ppo.tb2.link}}
+    		<a href="{{nyc_ppo.tb2.link}}" target="_blank">{{nyc_ppo.tb2.name}}</a>
+    	{{else}}
+    		{{nyc_ppo.tb2.name}}
+    	{{/if}}
+    </li>
+    {{#each nyc_ppo.tb2.value as |item|}}
+	    <li class="datum crawl_body">
+			{{item}}
+	    </li>
+    {{/each}}
+</ul>
+<ul class="lot-zoning-list">
+    <li class="datum crawl_body">
+    	{{#if nyc_ppo.tb3.link}}
+    		<a href="{{nyc_ppo.tb3.link}}" target="_blank">{{nyc_ppo.tb3.name}}</a>
+    	{{else}}
+    		{{nyc_ppo.tb3.name}}
+    	{{/if}}
+    </li>
+    {{#each nyc_ppo.tb3.value as |item|}}
+	    <li class="datum crawl_body">
+			{{item}}
+	    </li>
+    {{/each}}
+</ul>
+{{yield}}
