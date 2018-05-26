@@ -161,99 +161,142 @@
     </div>
 
     <hr/>
-    {{scraped-part
-        lot=lot nyc_ppo=ppo}}
-    <hr/>
-    {{#each crawl.title as |item|}}
-        <h3 class="header-small lot-section-header tent-style">{{item}}</h3>
-    {{/each}}
-    <div class="data-grid"><label class="data-label">{{crawl.tsDate.[0]}}</label><span class="datum">{{crawl.tsDate.[1]}}</span></div>
-    <div class="data-grid"><label class="data-label">{{crawl.txClass.[0]}}</label><span class="datum">{{crawl.txClass.[1]}}</span></div>
-    <div class="data-grid"><label class="data-label">{{crawl.bdClass.[0]}}</label><span class="datum">{{crawl.bdClass.[1]}}</span></div>
+    {{#if (and ready_flg1 ready_flg2 ready_flg3)}}    
+      {{scraped-part
+          lot=lot nyc_ppo=ppo}}
+      <hr/>
+      {{#each crawl.title as |item|}}
+          <h3 class="header-small lot-section-header tent-style">{{item}}</h3>
+      {{/each}}
+      <div class="data-grid"><label class="data-label">{{crawl.tsDate.[0]}}</label><span class="datum">{{crawl.tsDate.[1]}}</span></div>
+      <div class="data-grid"><label class="data-label">{{crawl.txClass.[0]}}</label><span class="datum">{{crawl.txClass.[1]}}</span></div>
+      <div class="data-grid"><label class="data-label">{{crawl.bdClass.[0]}}</label><span class="datum">{{crawl.bdClass.[1]}}</span></div>
 
-    <h3 class="header-small lot-section-header">Assessment Information</h3>
-    <ul class="lot-zoning-list">
-        {{#each crawl.asInfo_head as |item|}}
-            <li class="datum crawl_header">{{item}}</li>
-        {{/each}}
-    </ul>
-    <ul class="lot-zoning-list">
-        {{#each crawl.asInfo_body as |item|}}
-            {{#each item as |item1|}}
-                <li class="datum crawl_body">{{item1}}</li>
-            {{/each}}
-        {{/each}}
-    </ul>
-    <h3 class="header-small lot-section-header">Taxable/Billable Assessed Value</h3>
-    <ul class="lot-zoning-list">
-        {{#each crawl.tbav_head as |item|}}
-            <li class="datum tbav_header">{{item}}</li>
-        {{/each}}
-    </ul>
-    <ul class="lot-zoning-list">
-        {{#each crawl.tbav_body as |item|}}
-            {{#each item as |item1|}}
-                <li class="datum tbav_body">{{item1}}</li>
-            {{/each}}
-        {{/each}}
-    </ul>
+      <h3 class="header-small lot-section-header">Assessment Information</h3>
+      <ul class="lot-zoning-list">
+          {{#each crawl.asInfo_head as |item|}}
+              <li class="datum crawl_header">{{item}}</li>
+          {{/each}}
+      </ul>
+      <ul class="lot-zoning-list">
+          {{#each crawl.asInfo_body as |item|}}
+              {{#each item as |item1|}}
+                  <li class="datum crawl_body">{{item1}}</li>
+              {{/each}}
+          {{/each}}
+      </ul>
+      <h3 class="header-small lot-section-header">Taxable/Billable Assessed Value</h3>
+      <ul class="lot-zoning-list">
+          {{#each crawl.tbav_head as |item|}}
+              <li class="datum tbav_header">{{item}}</li>
+          {{/each}}
+      </ul>
+      <ul class="lot-zoning-list">
+          {{#each crawl.tbav_body as |item|}}
+              {{#each item as |item1|}}
+                  <li class="datum tbav_body">{{item1}}</li>
+              {{/each}}
+          {{/each}}
+      </ul>
 
-    {{#if crawl.eI_head.[0]}}
-        <h3 class="header-small lot-section-header">Exemption Information</h3>
-        <ul class="lot-zoning-list">
-            {{#each crawl.eI_head as |item|}}
-                <li class="datum eI_header">{{item}}</li>
-            {{/each}}
-        </ul>
-        <ul class="lot-zoning-list">
-            {{#each crawl.eI_body as |item|}}
-                {{#each item as |item1|}}
-                    <li class="datum eI_body">{{item1}}</li>
+      {{#if crawl.eI_head.[0]}}
+          <h3 class="header-small lot-section-header">Exemption Information</h3>
+          <ul class="lot-zoning-list">
+              {{#each crawl.eI_head as |item|}}
+                  <li class="datum eI_header">{{item}}</li>
+              {{/each}}
+          </ul>
+          <ul class="lot-zoning-list">
+              {{#each crawl.eI_body as |item|}}
+                  {{#each item as |item1|}}
+                      <li class="datum eI_body">{{item1}}</li>
+                  {{/each}}
+              {{/each}}
+          </ul>
+      {{/if}}
+      
+      <hr/>
+      {{#if ready_flg4}}
+        <h3 class="header-small lot-section-header">{{hpd_result.aov.title}}</h3>
+        {{#if hpd_result.aov.sub1.content}}
+          <h3 class="header-small lot-section-header sub-header-small">{{hpd_result.aov.sub1.title}}</h3>
+          {{#each hpd_result.aov.sub1.content as |item|}}
+            <div class="data-grid">
+              <label class="data-label">
+                {{item.[0]}}
+              </label>
+              <span class="datum">
+                {{item.[1]}}
+              </span>
+            </div>
+          {{/each}}
+        {{/if}}
+        {{#if hpd_result.aov.sub2.content}}
+          <ul class="lot-zoning-list hpd_main_header" {{action 'headerClicked'}}>
+              {{#each hpd_result.aov.sub2.title as |item|}}
+                  <li class="datum hpd_header">{{item}}</li>
+                  <li class="datum hpd_header" style="width: 1px;height: 60px;background-color: white;"></li>
+              {{/each}}
+          </ul>
+          {{#if isExpended}}
+            <ul class="lot-zoning-list hpd_main_body">
+                {{#each hpd_result.aov.sub2.content as |item|}}
+                    {{#each item as |item1|}}
+                        <li class="datum hpd_body">{{item1}}</li>
+                    {{/each}}
+                    <hr/>
                 {{/each}}
-            {{/each}}
-        </ul>
+            </ul>
+          {{else}}
+            <hr/>
+          {{/if}}
+        {{else}}
+          <hr/>
+        {{/if}}
+      {{else}}
+        <div class="data-grid"><label class="data-label">loading HPD data...</label></div>
+      {{/if}}
+
+      <h3 class="header-small lot-section-header">{{crawl_pty.title1}}</h3>
+      <h3 class="header-small lot-section-header sub-header-small">{{main_title}}</h3>
+      {{#each main_array as |item|}}
+        <div class="data-grid"><label class="data-label">{{item.[0]}}</label><span class="datum">{{item.[1]}}</span></div>
+      {{/each}}
+      <h3 class="header-small lot-section-header">{{crawl_pty.title2}}</h3>
+      {{#each sub_array1 as |item|}}
+        <h3 class="header-small lot-section-header sub-header-small">{{item.sub_title}}</h3>
+        {{#each item.sub_array as |item1|}}
+          <div class="data-grid">
+            <label class="data-label">
+              {{item1.[0]}}
+            </label>
+            <span class="datum">
+              {{item1.[1]}}
+              {{#if item1.[2]}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datum_detail">{{item1.[2]}}</span>{{/if}}
+            </span>
+          </div>
+        {{/each}}
+      {{/each}}
+      <h3 class="header-small lot-section-header">{{crawl_pty.title3}}</h3>
+      <h3 class="header-small lot-section-header sub-header-small">{{sub_title2}}</h3>
+      {{#each sub_array2 as |item|}}
+        <h3 class="header-small lot-section-header sub-header-small">{{item.sub_title}}</h3>
+        {{#each item.sub_array as |item1|}}
+          <div class="data-grid">
+            <label class="data-label">
+              {{item1.[0]}}
+            </label>
+            <span class="datum">
+              {{item1.[1]}}
+              {{#if item1.[2]}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datum_detail">{{item1.[2]}}</span>{{/if}}
+            </span>
+          </div>
+        {{/each}}
+      {{/each}}
+      <hr/>
+    {{else}}
+      <div class="data-grid"><label class="data-label">Waiting for loading...</label></div>
     {{/if}}
-    
-    <hr/>
-
-    <h3 class="header-small lot-section-header">{{crawl_pty.title1}}</h3>
-    <h3 class="header-small lot-section-header sub-header-small">{{main_title}}</h3>
-    {{#each main_array as |item|}}
-      <div class="data-grid"><label class="data-label">{{item.[0]}}</label><span class="datum">{{item.[1]}}</span></div>
-    {{/each}}
-    <h3 class="header-small lot-section-header">{{crawl_pty.title2}}</h3>
-    {{#each sub_array1 as |item|}}
-      <h3 class="header-small lot-section-header sub-header-small">{{item.sub_title}}</h3>
-      {{#each item.sub_array as |item1|}}
-        <div class="data-grid">
-          <label class="data-label">
-            {{item1.[0]}}
-          </label>
-          <span class="datum">
-            {{item1.[1]}}
-            {{#if item1.[2]}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datum_detail">{{item1.[2]}}</span>{{/if}}
-          </span>
-        </div>
-      {{/each}}
-    {{/each}}
-    <h3 class="header-small lot-section-header">{{crawl_pty.title3}}</h3>
-    <h3 class="header-small lot-section-header sub-header-small">{{sub_title2}}</h3>
-    {{#each sub_array2 as |item|}}
-      <h3 class="header-small lot-section-header sub-header-small">{{item.sub_title}}</h3>
-      {{#each item.sub_array as |item1|}}
-        <div class="data-grid">
-          <label class="data-label">
-            {{item1.[0]}}
-          </label>
-          <span class="datum">
-            {{item1.[1]}}
-            {{#if item1.[2]}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datum_detail">{{item1.[2]}}</span>{{/if}}
-          </span>
-        </div>
-      {{/each}}
-    {{/each}}
-    <hr/>
-
     <h3 class="header-small lot-section-header">Location #1</h3>
 
     {{#if lot.block}}<div class="data-grid"><label class="data-label">Tax Block</label><span class="datum">{{lot.block}}</span></div>{{/if}}

@@ -57,14 +57,28 @@ export default Controller.extend(Bookmarkable, {
     var self = this;
     const result = {};
     
+    self.set('ready_flg1', false);
     $.ajax({
       type: 'POST',
       url: 'http://localhost:5000/api/crawl-data',
-      async: false,
       data: JSON.stringify(param),
       success: function(response) {
         console.log(result);
+        self.set('ready_flg1', true);
         self.set('crawl', response);
+      },
+    });
+
+    self.set('ready_flg4', false);
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:5000/api/getHPD',
+      data: JSON.stringify(param),
+      success: function(response) {
+        console.log("----------------");
+        console.log(response);
+        self.set('ready_flg4', true);
+        self.set('hpd_result', response);
       },
     });
   },
@@ -78,14 +92,16 @@ export default Controller.extend(Bookmarkable, {
     };
 
     var self = this;
-
+    
+    self.set('ready_flg2', false);
+    self.set('isExpended', false);
     $.ajax({
       type: 'POST',
       url: 'http://localhost:5000/api/getCertUrl',
-      async: false,
       data: JSON.stringify(param),
       success: function(response) {
         console.log(response);
+        self.set('ready_flg2', true);
         self.set('ppo', response)
         $.scrape_link = response.cUrl;
         console.log($.scrape_link);
@@ -104,20 +120,22 @@ export default Controller.extend(Bookmarkable, {
     var self = this;
     
     intializeDatas(this);
+    
+    self.set('ready_flg3', false);
 
     $.ajax({
       type: 'POST',
       url: 'http://localhost:5000/api/crawl-propertyportal',
-      async: false,
       data: JSON.stringify(param),
       success: function(response) {
         console.log(response);
-        self.set('main_title', response[response.title1][0]['sub_title']);
+        self.set('ready_flg3', true);
+        self.set('main_title', response[response.title1][0]["sub_title"]);
         self.set('main_array', response[response.title1][0][self.main_title]);
-        if(response[response.title2].length !== 0) {
+        if (response[response.title2].length !== 0) {
           self.set('sub_array1', response[response.title2]);
         }
-        if(response[response.title3].length !== 0) {
+        if (response[response.title3].length !== 0) {
           self.set('sub_array2', response[response.title3]);
         }
         self.set('crawl_pty', response);
@@ -143,6 +161,17 @@ export default Controller.extend(Bookmarkable, {
           };
         }),
       );
+  },
+  actions: {
+    headerClicked() {
+      if (this.get('isExpended') == true){
+        this.set('isExpended', false);
+      }
+      else{
+        this.set('isExpended', true);
+      }
+      console.log("++++++++++++++++++++++++++++++");
+    },
   },
 
 });

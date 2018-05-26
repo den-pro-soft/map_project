@@ -190,9 +190,22 @@ button {
     text-align: center;
     color: white;
   }
+
   %common_body {
     text-align: center;
     overflow-x: hidden;
+  }
+
+  %common_hdp_head {
+    background-color: unset;
+    text-align: center;
+  }
+
+  %common_hdp_body {
+    background-color: #fafafa;
+    font-size: 0.7rem;
+    text-align: center;
+    overflow: auto;
   }
 
   margin: $paragraph-margin-bottom/2 0;
@@ -273,6 +286,64 @@ button {
     width: 28.5%;
     @extend %common_body;
   }
+
+  .hpd_header:nth-child(11) {
+    width: 13%;
+    @extend %common_hdp_head;
+  }
+
+  .hpd_header:nth-child(16) {
+    width: 0px !important;
+    @extend %common_hdp_head;
+  }
+
+  .hpd_header:nth-child(6n + 3) {
+    width: 16%;
+    @extend %common_hdp_head;
+  }
+
+  .hpd_header {
+    width: 7%;
+    color: white;
+    @extend %common_hdp_head;
+  }
+
+  .hpd_body:nth-child(9n + 6) {
+    width: 13%;
+    height: 4rem;
+    @extend %common_hdp_body;
+   }
+
+  .hpd_body:nth-child(9n + 2) {
+    width: 16%;
+    @extend %common_hdp_body;
+  }
+
+  .hpd_body:nth-child(9n + 5) {
+    width: 16%;
+    @extend %common_hdp_body;
+  }
+
+  .hpd_body:nth-child(9n + 8) {
+    width: 16%;
+    @extend %common_hdp_body;
+  }
+
+  .hpd_body {
+    width: 8%;
+    @extend %common_hdp_body;
+  }
+}
+
+.hpd_main_header {  
+  font-size: 0.8rem;
+  background: mediumblue;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hpd_main_body {
+  background-color: #fafafa;
 }
 
 .sub-header-small {
