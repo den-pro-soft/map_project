@@ -172,6 +172,15 @@ export default Controller.extend(Bookmarkable, {
       }
       console.log("++++++++++++++++++++++++++++++");
     },
+    headerClicked1() {
+      if (this.get('isExpended1') == true){
+        this.set('isExpended1', false);
+      }
+      else{
+        this.set('isExpended1', true);
+      }
+      console.log("++++++++++++++++++++++++++++++");
+    },
   },
 
 });

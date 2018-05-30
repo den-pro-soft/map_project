@@ -253,6 +253,42 @@
         {{else}}
           <hr/>
         {{/if}}
+        <h3 class="header-small lot-section-header">{{hpd_result.pyov.title}}</h3>
+        {{#if hpd_result.pyov.sub1.content}}
+          <h3 class="header-small lot-section-header sub-header-small">{{hpd_result.pyov.sub1.title}}</h3>
+          {{#each hpd_result.pyov.sub1.content as |item|}}
+            <div class="data-grid">
+              <label class="data-label">
+                {{item.[0]}}
+              </label>
+              <span class="datum">
+                {{item.[1]}}
+              </span>
+            </div>
+          {{/each}}
+        {{/if}}
+        {{#if hpd_result.pyov.sub2.content}}
+          <ul class="lot-zoning-list hpd_main_header" {{action 'headerClicked1'}}>
+              {{#each hpd_result.pyov.sub2.title as |item|}}
+                  <li class="datum hpd_header">{{item}}</li>
+                  <li class="datum hpd_header" style="width: 1px;height: 60px;background-color: white;"></li>
+              {{/each}}
+          </ul>
+          {{#if isExpended1}}
+            <ul class="lot-zoning-list hpd_main_body">
+                {{#each hpd_result.pyov.sub2.content as |item|}}
+                    {{#each item as |item1|}}
+                        <li class="datum hpd_body">{{item1}}</li>
+                    {{/each}}
+                    <hr/>
+                {{/each}}
+            </ul>
+          {{else}}
+            <hr/>
+          {{/if}}
+        {{else}}
+          <hr/>
+        {{/if}}
       {{else}}
         <div class="data-grid"><label class="data-label">loading HPD data...</label></div>
       {{/if}}
